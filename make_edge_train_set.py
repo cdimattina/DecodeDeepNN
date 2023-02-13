@@ -25,6 +25,11 @@ img_dim         = 256
 max_sz          = 128
 label_dict      = ['H','V']
 
+# location of texture databases
+mcgill_dir      = '../CJD/MCGILL256/'
+brodatz_dir     = '../CJD/BRODATZ256/'
+train_set_dir   = '../CJD/TRAINSETS/'
+
 def check_inputs(argin):
 
     if(len(argin) != inputs_expected):
@@ -136,9 +141,9 @@ def main():
 
         print("CPLAB: " + text_set + " texture set...")
         if(text_set == 'MCGILL'):
-            text_dir = "MCGILL256//"
+            text_dir = mcgill_dir
         elif(text_set == 'BRODATZ'):
-            text_dir = "BRODATZ256//"
+            text_dir = brodatz_dir
 
         file_list   = os.listdir(text_dir)
         num_files   = len(file_list)
@@ -158,7 +163,7 @@ def main():
             fold_ind = range(st_ind,sp_ind)
             print("CPLAB: Making fold " + str(this_fold+1))
             for this_label in range(2):
-                this_out_dir = "./TRAINSETS/" + text_set + "/" + str(patch_sz) +"/" + label_dict[this_label] + "/Fold_" + str(this_fold+1) + "/"
+                this_out_dir = train_set_dir + text_set + "/" + str(patch_sz) +"/" + label_dict[this_label] + "/Fold_" + str(this_fold+1) + "/"
                 (train_images,train_cat) = make_training_set(text_dir,fold_ind,this_label,patch_sz,num_train)
                 outfile_name = label_dict[this_label] + "_" + str(patch_sz) + "_" + str(set_num) + ".mat"
                 full_outfile_name = this_out_dir + outfile_name
