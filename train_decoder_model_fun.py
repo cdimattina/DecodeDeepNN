@@ -30,7 +30,7 @@ def remove_substr(str,sub):
       return str[:-len(sub)]
    return str
 
-def train_this_model(this_dataset='MCGILL',patch_sz=64, this_model_name='AlexNet', this_layer=1, pool_rate=2,this_l2=-1,this_holdout_fold=5):
+def train_this_model(this_dataset='MCGILL',patch_sz=64, this_model_name='AlexNet', this_layer=1, pool_rate=2,this_l2=0.01,this_holdout_fold=5):
 
     working_directory = os.getcwd()
     print("CPLAB: Working directory : " + working_directory)

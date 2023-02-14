@@ -1,13 +1,14 @@
 """
 eval_trained_model.py
-
 """
-from keras.models import load_model
+
+
+from tensorflow.keras.models import load_model
 import numpy as np
 from scipy.io import savemat
 
-model_dir       = './/TRAINEDMODELS//'
-model_fname     = 'MCGILL_64_AlexNet_4_2_5'
+model_dir       = '../CJD/TRAINEDMODELS/'
+model_fname     = 'MCGILL_64_AlexNet_4_2_-1_5'
 
 this_model      = load_model(model_dir + model_fname)
 this_model.summary()
