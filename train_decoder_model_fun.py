@@ -9,6 +9,8 @@ Description : This program trains a linear decoder on the output of a given laye
 """
 
 import sys
+sys.path.append('../CJD/')
+
 import os
 import numpy as np
 import tensorflow as tf
@@ -23,13 +25,20 @@ num_epochs      = 5
 num_folds       = 5
 learning_rate   = 1e-04
 
-def train_this_model(this_dataset='MCGILL',patch_sz=64, this_model_name='AlexNet', this_layer=1, pool_rate=2,this_l2=0.1,this_holdout_fold=5):
+def remove_substr(str,sub):
+   if str.endswith(sub):
+      return str[:-len(sub)]
+   return str
+
+def train_this_model(this_dataset='MCGILL',patch_sz=64, this_model_name='AlexNet', this_layer=1, pool_rate=2,this_l2=-1,this_holdout_fold=5):
 
     working_directory = os.getcwd()
     print("CPLAB: Working directory : " + working_directory)
 
-    dir_path1 = working_directory + "\\TRAINSETS\\" + this_dataset + "\\" + str(patch_sz) + "\\H"
-    dir_path2 = working_directory + "\\TRAINSETS\\" + this_dataset + "\\" + str(patch_sz) + "\\V"
+    path_prefix = remove_substr(working_directory, 'DecodeDeepNN')
+
+    dir_path1 = path_prefix + "CJD/TRAINSETS/" + this_dataset + "/" + str(patch_sz) + "/H"
+    dir_path2 = path_prefix + "CJD/TRAINSETS/" + this_dataset + "/" + str(patch_sz) + "/V"
 
     print("CPLAB: Label 1 path      : " + dir_path1)
     print("CPLAB: Label 2 path      : " + dir_path2)
@@ -49,20 +58,10 @@ def train_this_model(this_dataset='MCGILL',patch_sz=64, this_model_name='AlexNet
     print("CPLAB: pool rate      = " + str(pool_rate))
 
     if(this_model_name=='AlexNet'):
-        anetData = np.load("ModelCode\\AlexNet\\AlexNet_WD\\AlexNet_WD.npy", mmap_mode=None, allow_pickle=True,
+        anetData = np.load("../CJD/ModelCode/AlexNet/AlexNet_WD/AlexNet_WD.npy", mmap_mode=None, allow_pickle=True,
                         fix_imports=True, encoding='ASCII')
         anet = AlexNet(anetData, 1, l2=this_l2, patch_sz=patch_sz, pool_rate=pool_rate, output=True)
         this_model = anet.get_model(this_layer)
-    elif(this_model_name=='VGG16'):
-        vgg16Data = np.load("ModelCode\\VGG16\\VGG_16_WD\\VGG_16_Weights.npy", mmap_mode=None, allow_pickle=True,
-                        fix_imports=True, encoding='ASCII')
-        vgg16 = VGG_16(vgg16Data, 1, l2=this_l2, patch_sz=patch_sz, pool_rate=pool_rate, output=True)
-        this_model = vgg16.get_model(this_layer)
-    elif(this_model_name=='VGG19'):
-        vgg19Data = np.load("ModelCode\\VGG19\\VGG_19_WD\\VGG_19_Weights.npy", mmap_mode=None, allow_pickle=True,
-                        fix_imports=True, encoding='ASCII')
-        vgg19 = VGG_19(vgg19Data, 1, l2=this_l2, patch_sz=patch_sz, pool_rate=pool_rate, output=True)
-        this_model = vgg19.get_model(this_layer)
     else:
         print("CPLAB: Model not currently supported!")
 
@@ -79,6 +78,6 @@ def train_this_model(this_dataset='MCGILL',patch_sz=64, this_model_name='AlexNet
     print(("CPLAB: Saving trained model..."))
     this_fname_out  = this_dataset + "_" + str(patch_sz) + "_" + this_model_name + "_" + str(this_layer) + "_" \
                                  + str(pool_rate) + "_" + str(int(np.log10(this_l2))) + "_" + str(this_holdout_fold)
-    this_fname_full = "./TRAINEDMODELS/" + this_fname_out
+    this_fname_full = "../CJD/TRAINEDMODELS/" + this_fname_out
     this_model.save(this_fname_full)
     print("CPLAB: Saved trained model to : " + this_fname_full)
