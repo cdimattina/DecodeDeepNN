@@ -8,8 +8,8 @@ this_dataset    = 'MCGILL'
 this_model_name = 'AlexNet'
 layer_list      = [1, 4, 4, 7]
 pool_rate_list  = [2, 1, 2, 1]
-patch_sz_list   = [16,32,64]
-l2_list         = [-1.0]
+patch_sz_list   = [16,24,32]
+l2_list         = [-3, -2, -1, 0, 1, 2, 3]
 fold_list       = [1,2,3,4,5]
 
 # number of layers, l2, folds
