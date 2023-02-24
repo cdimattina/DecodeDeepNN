@@ -15,10 +15,8 @@ import os
 import numpy as np
 import tensorflow as tf
 from tensorflow import keras
-from ModelCode.Scripts.load_dataset import LoadDataset
+from Scripts.load_dataset import LoadDataset
 from ModelCode.AlexNet.AlexNet import AlexNet
-from ModelCode.VGG16.VGG16_Model import VGG_16
-from ModelCode.VGG19.VGG19_Model import VGG_19
 
 batch_sz        = 100
 num_epochs      = 5

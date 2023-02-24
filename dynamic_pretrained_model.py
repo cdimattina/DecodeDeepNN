@@ -80,6 +80,5 @@ class DynamicPretrainedModel:
         model.build(self.inputs)
         model.summary()
 
-
-dynamic = DynamicPretrainedModel("Xception", 6, (60, 60, 3), 2)
-dynamic.model_summary()
+# dynamic = DynamicPretrainedModel("Xception", 6, (60, 60, 3), 2)
+# dynamic.model_summary()

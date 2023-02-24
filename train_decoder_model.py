@@ -15,7 +15,7 @@ import os
 import numpy as np
 import tensorflow as tf
 from tensorflow import keras
-from ModelCode.Scripts.load_dataset import LoadDataset
+from Scripts.load_dataset import LoadDataset
 from ModelCode.AlexNet.AlexNet import AlexNet
 
 # constants
