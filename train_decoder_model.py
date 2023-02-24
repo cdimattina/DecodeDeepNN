@@ -21,7 +21,7 @@ from ModelCode.AlexNet.AlexNet import AlexNet
 # constants
 num_arg_expected = 7
 valid_models    = ['AlexNet']
-valid_patch_sz  = [16, 32, 64]
+valid_patch_sz  = [16, 24, 32, 64]
 learning_rate   = 1e-4
 batch_sz        = 100
 num_epochs      = 5

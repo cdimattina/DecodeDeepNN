@@ -8,7 +8,7 @@ import tensorflow as tf
 from tensorflow import keras
 from keras import layers
 from tensorflow.keras.applications import *
-
+from Layers.imbedRGB import ImbedRGB
 
 class DynamicPretrainedModel:
     def __init__(self, model_name, layer_number, inputs, outputs):
@@ -23,6 +23,8 @@ class DynamicPretrainedModel:
         self.layer_number = layer_number
         self.inputs = inputs
         self.outputs = outputs
+
+        self.imbedLayer = ImbedRGB(227, 227)  # 227x227 is what AlexNet expects
 
     def __generate_model(self):
         """ download the pretrained model to get the individual layer
@@ -56,7 +58,7 @@ class DynamicPretrainedModel:
            from the pretrained model 
 
         Returns:
-            model.Keras: the custom model generted from the selected pretrained model
+            model.Keras: the custom model generated from the selected pretrained model
         """
         model = self.__generate_model()
         print("Model Input")
@@ -64,6 +66,7 @@ class DynamicPretrainedModel:
 
         dynamic_model = keras.Sequential(name=self.model_name)
         dynamic_model.add(layers.Input(self.inputs))
+        dynamic_model.add(self.imbedLayer)
 
         for i, layer in enumerate(model.layers):
             if i <= self.layer_number:
