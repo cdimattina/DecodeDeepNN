@@ -64,7 +64,7 @@ class DynamicPretrainedModel:
         print("Model Input")
         print(model.input)
 
-        dynamic_model = keras.Sequential(name=self.model_name)
+        dynamic_model = keras.Sequential([],name=self.model_name)
         dynamic_model.add(layers.Input(self.inputs))
         dynamic_model.add(self.imbedLayer)
 
@@ -73,7 +73,7 @@ class DynamicPretrainedModel:
                 dynamic_model.add(layer)
 
         dynamic_model.add(layers.Flatten())
-        dynamic_model.add(layers.Dense(self.outputs))
+        dynamic_model.add(layers.Dense(self.outputs,trainable=True))
 
         return dynamic_model
 
