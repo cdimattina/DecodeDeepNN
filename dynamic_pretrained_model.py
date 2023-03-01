@@ -11,7 +11,7 @@ from tensorflow.keras.applications import *
 from Layers.imbedRGB import ImbedRGB
 
 class DynamicPretrainedModel:
-    def __init__(self, model_name, layer_number, inputs, outputs):
+    def __init__(self, model_name, layer_number, l1, inputs, outputs):
         """Constructor for the DynamicPretrainedModel Class
 
         Args:
@@ -23,6 +23,7 @@ class DynamicPretrainedModel:
         self.layer_number = layer_number
         self.inputs = inputs
         self.outputs = outputs
+        self.l1      = l1
 
         self.imbedLayer = ImbedRGB(227, 227)  # 227x227 is what AlexNet expects
 
@@ -73,7 +74,7 @@ class DynamicPretrainedModel:
                 dynamic_model.add(layer)
 
         dynamic_model.add(layers.Flatten())
-        dynamic_model.add(layers.Dense(self.outputs,trainable=True))
+        dynamic_model.add(layers.Dense(self.outputs,trainable=True,kernel_regularizer = keras.regularizers.l1(self.l1)))
 
         return dynamic_model
 
