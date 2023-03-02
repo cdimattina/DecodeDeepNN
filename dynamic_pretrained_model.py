@@ -12,7 +12,7 @@ from Layers.imbedRGB import ImbedRGB
 import numpy as np
 
 from alexnet import AlexNet
-from Layers.resize_and_imbed_layer import ResizeImbedRBG
+#from Layers.resize_and_imbed_layer import ResizeImbedRBG
 
 class DynamicPretrainedModel:
     def __init__(self, model_name, layer_number, l1, inputs, outputs):
@@ -29,8 +29,9 @@ class DynamicPretrainedModel:
         self.outputs = outputs
         self.l1      = l1
 
-        self.imbedLayer = ResizeImbedRBG(
-            64, 64, 224, 224, is_resize=False, is_imbed=False, is_rgb=True)  # 227x227 is what AlexNet expects
+        self.imbedLayer = ImbedRGB(227,227)
+      # self.imbedLayer = ResizeImbedRBG(
+      #    64, 64, 224, 224, is_resize=False, is_imbed=False, is_rgb=True)  # 227x227 is what AlexNet expects
 
     def __generate_model(self):
         """ download the pretrained model to get the individual layer
