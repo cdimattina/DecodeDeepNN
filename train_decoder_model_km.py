@@ -19,8 +19,8 @@ import tensorflow as tf
 from tensorflow import keras
 from Scripts.load_dataset import LoadDataset
 from dynamic_pretrained_model import DynamicPretrainedModel
-from ModelCode.AlexNet.AlexNet import AlexNet
-#from alexnet import AlexNet
+#from ModelCode.AlexNet.AlexNet import AlexNet
+from alexnet import AlexNet
 
 # constants
 num_arg_expected = 7
