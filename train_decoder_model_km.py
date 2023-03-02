@@ -20,6 +20,7 @@ from tensorflow import keras
 from Scripts.load_dataset import LoadDataset
 from dynamic_pretrained_model import DynamicPretrainedModel
 from ModelCode.AlexNet.AlexNet import AlexNet
+#from alexnet import AlexNet
 
 # constants
 num_arg_expected = 7
@@ -50,7 +51,7 @@ def remove_substr(str,sub):
 
 def print_error_message(error_code):
     if(error_code==1):
-        print("CPLAB: Usage: python train_decoder_model.py <data> <patch_sz> <model> <layer> <pool_rate> <l2> ")
+        print("CPLAB: Usage: python train_decoder_model_km.py <data> <patch_sz> <model> <layer> <pool_rate> <l2> ")
         print("CPLAB:        <data>         : 'MCGILL' or 'BRODATZ' ")
         print("CPLAB:        <patch_sz>     : patch size")
         print("CPLAB:        <model>        : 'AlexNet','VGG16', 'VGG19', 'ResNet50', 'InceptionV3', 'Xception'")
